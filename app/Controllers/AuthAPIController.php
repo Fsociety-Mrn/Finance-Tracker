@@ -5,15 +5,15 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class FinanceAPIController extends BaseController
+class AuthAPIController extends BaseController
 {
     public function index()
     {
-        return $this->response->setJSON(["API endpoint success"]);
+        return $this->response->setJSON(["API AUTH endpoint success"]);
     }
 
     public function login()
     {
-        return $this->response->setJSON(["Please Login"]);
+        return $this->response->setJSON(["Login failed"]);
     }
 }

@@ -29,37 +29,35 @@ class AuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         try {
+            
+            // Get the API key from the headers
+            $token = $request->getHeaderLine('X-API-KEY');
+            $key = getenv('API_KEYS');
 
-            $key = getenv('JWT_SECRET');
-            $header = $request->getHeaderLine("Authorization");
-            $token = null;
-      
-            // extract the token from the header
-            if(!empty($header)) {
-                if (preg_match('/Bearer\s(\S+)/', $header, $matches)) {
-                    $token = $matches[1];
-                }
-            }
-      
-            // check if token is null or empty
-            if(is_null($token) || empty($token)) {
+            // Check if API key exists
+            if (empty($token)) {
+                // API key is missing
                 $response = service('response');
-                $response->setBody('Access denied');
+                $response->setBody('Please input api keys');
                 $response->setStatusCode(401);
                 return $response;
             }
-            
-            // // $decoded = JWT::decode($token, $key, array("HS256"));
-            // $decoded = JWT::decode($token, new Key($key, 'HS256'));
-            if (preg_match('/Bearer\s(\S+)/', $header, $matches)) {
-                        $token = $matches[1];
-                        print_r($token);
+
+            if ($token !== $key){
+
+                $response = service('response');
+                $response->setBody('Invalid api keys');
+                $response->setStatusCode(400);
+                return $response;
             }
-     
+
+
+
         } catch (Exception $ex) {
+            // Exception occurred
             $response = service('response');
-            $response->setBody('Access denied');
-            $response->setStatusCode(401);
+            $response->setBody($ex->getMessage());
+            $response->setStatusCode($ex->getCode());
             return $response;
         }
     }
