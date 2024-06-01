@@ -9,6 +9,7 @@ class AuthAPIController extends BaseController
 {
     public function index()
     {
+        // asdasd
         return $this->response->setJSON(["API AUTH endpoint success"]);
     }
 
