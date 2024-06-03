@@ -12,7 +12,7 @@ class AuthTableSeeder extends Seeder
             'FullName'=>'Account,Admin C', 
             'Age'=>24, 
             'Birthday'=> date("Y-m-d", strtotime("January 30, 2000")), 
-            'Username'=>base64_encode('hellofriend'), 
+            'Username'=>'hellofriend', 
             'Email'=>'lisboamillen30@gmail.com', 
             'Password'=>base64_encode('hellofriend')
         ];

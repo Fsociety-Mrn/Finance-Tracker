@@ -7,11 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 $routes->group('Auth',['filter' => 'authFilter'],static function($routes){
-
-    // Test API routes
-    // $routes->get('/WOW', 'FinanceAPIController::index');
-
     // Login
-    $routes->get('Login', 'AuthAPIController::login');
+    $routes->post('Login', 'AuthAPIController::login');
 });
 

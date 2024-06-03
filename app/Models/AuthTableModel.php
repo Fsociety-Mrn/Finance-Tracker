@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class AuthTableModel extends Model
 {
-    protected $table            = 'Auth_Table';
+    protected $table            = 'auth_table';
     protected $primaryKey       = 'uid';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
