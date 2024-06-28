@@ -4,16 +4,19 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
-
+use CodeIgniter\Shield\Authentication\JWTManager;
+use \Firebase\JWT\JWT;
 class AuthAPIController extends BaseController
 {
+    
     public function index()
     {
-        // asdasd
+        // testing if API are working
         return $this->response->setStatusCode(200)->setJSON(["You have succesfully connected to endpoint, please read the github documentations of this projects"]);
     }
 
-    private function JWT_Tokens($data){
+    // Generate Token
+    private function JWT_Encode($data){
 
         $SECRET_KEY = getenv('JWT_SECRET');
 
@@ -26,7 +29,7 @@ class AuthAPIController extends BaseController
             "email"=> $data['Email']                  //               such as name and email
         ];
         
-        return $payload;
+        return JWT::encode($payload, $SECRET_KEY,'HS256');
     }
 
     public function login()
@@ -50,7 +53,7 @@ class AuthAPIController extends BaseController
             $result_message = empty($result) ? [
                 "token" => "Invalid Credentials",
                 "error" => boolval(True)
-            ] : $this->JWT_Tokens($result[0]);
+            ] : $this->JWT_Encode($result[0]);
 
 
             return $this->response->setStatusCode(200)->setJSON($result_message);
